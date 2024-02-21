@@ -1,0 +1,18 @@
+<p>Counter: {{counter()}}</p>
+<div>
+    <button (click)="decrement()">Decrement</button>
+    <button (click)="increment()">Increment</button>
+</div>
+
+<p>Activity Logs(in Older version): </p>
+<ol>
+    <li *ngFor="let action of actions()">{{action}}</li>
+</ol>
+
+<p>Activity Logs(in New version): </p>
+<ol>
+    <!-- new ways to use for/ if and switch cases in angular 17 -->
+    @for (action of actions(); track action) { 
+        <li>{{action}}</li>
+    }
+</ol>
