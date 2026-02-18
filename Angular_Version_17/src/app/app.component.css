@@ -1,6 +1,13 @@
-.signal {
-    border: 1px solid gray;
-    align-items: center;
-    text-align: center;
-    background-color: palegreen;
+.active-link {
+  background: #1976d2;
+  color: #fff !important;
+  font-weight: bold;
+}
+
+.menu-link {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  color: #333;
+  transition: background 0.2s, color 0.2s;
 }

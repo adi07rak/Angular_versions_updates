@@ -1,5 +1,20 @@
 <h1>::Angular Version 17::</h1>
-<div class="signal">
-  <h3>Signal Demo:</h3>
-  <app-signals-component />
-</div>
+<nav>
+  <ul style="list-style: none; display: flex; gap: 1rem; padding: 0">
+    <li>
+      <a
+        routerLink="/"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="menu-link"
+        >Home</a
+      >
+    </li>
+    <li>
+      <a routerLink="/diff" routerLinkActive="active-link" class="menu-link"
+        >Diff</a
+      >
+    </li>
+  </ul>
+</nav>
+<router-outlet></router-outlet>
