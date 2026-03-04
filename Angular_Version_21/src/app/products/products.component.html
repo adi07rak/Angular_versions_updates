@@ -1,0 +1,19 @@
+<mat-form-field>
+  <input matInput placeholder="Search" (input)="search.set($any($event.target).value)" />
+</mat-form-field>
+
+@if (this.loading$ | async) {
+  <mat-spinner></mat-spinner>
+}
+
+@if (this.error$ | async) {
+  <p class="error">{{ error() }}</p>
+}
+
+@for (product of filteredProducts(); track product.id) {
+  <mat-card class="product-card">
+    <img [src]="product.image" />
+    <h3>{{ product.title }}</h3>
+    <p>${{ product.price }}</p>
+  </mat-card>
+}
