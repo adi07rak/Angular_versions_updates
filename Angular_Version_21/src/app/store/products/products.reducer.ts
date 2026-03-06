@@ -1,29 +1,37 @@
 import { createReducer, on } from '@ngrx/store';
-import * as ProductActions from './products.action';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import * as ProductActions from './products.actions';
+import { Product } from '../../products/models/product.model';
 
-export interface ProductState {
-  products: any[];
+export interface ProductState extends EntityState<Product> {
+  loading: boolean;
+  error: string | null;
 }
 
-export const initialState: ProductState = {
-  products: [],
-};
+export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>();
+
+export const initialState: ProductState = adapter.getInitialState({
+  loading: false,
+  error: null,
+});
 
 export const productsReducer = createReducer(
   initialState,
+
   on(ProductActions.loadProducts, (state) => ({
     ...state,
-    products: [
-      { id: 1, name: 'Laptop' },
-      { id: 2, name: 'Phone' },
-    ],
+    loading: true,
   })),
-  on(ProductActions.loadProductsSuccess, (state, { products }) => ({
-    ...state,
-    products,
-  })),
-  on(ProductActions.loadProductsFailure, (state, { error }) => ({
-    ...state,
-    products: [],
-  })),
+  on(ProductActions.loadProductsSuccess, (state, { products }) => {
+    console.log('Products loaded successfully:', products);
+    return adapter.setAll(products, { ...state, loading: false });
+  }),
+  on(ProductActions.loadProductsFailure, (state, { error }) => {
+    console.log('Failed to load products:', error);
+    return {
+      ...state,
+      error,
+      loading: false,
+    };
+  }),
 );
